@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Match Parser Demo</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f6f8fa;
+        }
+
+        .card {
+            border-radius: 12px;
+        }
+
+        .badge-demo {
+            font-size: 0.8rem;
+        }
+
+        .code {
+            background: #eee;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+
+    <!-- HEADER -->
+    <div class="text-center mb-5">
+        <h1 class="fw-bold">Match Parser</h1>
+        <p class="text-muted">
+            REST application for parsing PractiScore match results
+        </p>
+    </div>
+
+    <!-- IMPORT FORM -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Import Match</h5>
+
+            <form method="post" action="/import">
+                <div class="mb-3">
+                    <label class="form-label">Source URL</label>
+                    <input type="text" class="form-control" name="sourceUrl"
+                           placeholder="https://practiscore.com/results/html/... or demo://sample">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Run Import
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- QUICK SCENARIOS -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Quick Test Scenarios</h5>
+
+            <div class="row">
+
+                <!-- SIMPLE -->
+                <div class="col-md-4 mb-3">
+                    <div class="border p-3 rounded bg-white h-100">
+                        <h6>
+                            Simple Demo
+                            <span class="badge bg-success badge-demo">SUCCESS</span>
+                        </h6>
+                        <p class="small text-muted">
+                            Minimal HTML parsing
+                        </p>
+                        <div class="code mb-2">demo://sample</div>
+
+                        <form method="post" action="/import">
+                            <input type="hidden" name="sourceUrl" value="demo://sample">
+                            <button class="btn btn-sm btn-outline-primary w-100">
+                                Run
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- REALISTIC -->
+                <div class="col-md-4 mb-3">
+                    <div class="border p-3 rounded bg-white h-100">
+                        <h6>
+                            Realistic Demo
+                            <span class="badge bg-success badge-demo">SUCCESS</span>
+                        </h6>
+                        <p class="small text-muted">
+                            HTML similar to PractiScore
+                        </p>
+                        <div class="code mb-2">demo://realistic</div>
+
+                        <form method="post" action="/import">
+                            <input type="hidden" name="sourceUrl" value="demo://realistic">
+                            <button class="btn btn-sm btn-outline-primary w-100">
+                                Run
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- FAIL -->
+                <div class="col-md-4 mb-3">
+                    <div class="border p-3 rounded bg-white h-100">
+                        <h6>
+                            Real PractiScore
+                            <span class="badge bg-danger badge-demo">FAILED</span>
+                        </h6>
+                        <p class="small text-muted">
+                            Demonstrates error handling (403)
+                        </p>
+                        <div class="code mb-2">https://practiscore.com/...</div>
+
+                        <form method="post" action="/import">
+                            <input type="hidden" name="sourceUrl"
+                                   value="https://practiscore.com/results/html/c45aaf65-eda3-4971-bf6b-4c2bafbae337">
+                            <button class="btn btn-sm btn-outline-danger w-100">
+                                Run
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- LINKS -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Navigation</h5>
+
+            <div class="d-flex gap-3 flex-wrap">
+                <a href="/imports" class="btn btn-outline-secondary">Import Jobs</a>
+                <a href="/matches" class="btn btn-outline-secondary">Matches</a>
+                <a href="/results" class="btn btn-outline-secondary">Results</a>
+                <a href="/swagger-ui/index.html" class="btn btn-outline-dark">Swagger</a>
+                <a href="/h2-console" class="btn btn-outline-dark">H2 Console</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

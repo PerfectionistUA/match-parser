@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Import History</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title">Import History</h1>
+        <p class="page-subtitle">
+            Список усіх імпортів, їх статусів та помилок обробки.
+        </p>
+
+        <nav class="top-nav">
+            <a class="nav-link" th:href="@{/}">Home</a>
+            <a class="nav-link" th:href="@{/matches}">Matches</a>
+            <a class="nav-link" th:href="@{/swagger-ui/index.html}">Swagger UI</a>
+        </nav>
+    </header>
+
+    <section class="card">
+        <h2 class="section-title">All imports</h2>
+
+        <div th:if="${#lists.isEmpty(imports)}" class="empty">
+            Ще немає жодного імпорту.
+        </div>
+
+        <div th:if="${!#lists.isEmpty(imports)}" class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Source URL</th>
+                    <th>Status</th>
+                    <th>Requested At</th>
+                    <th>Finished At</th>
+                    <th>Error Message</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="imp : ${imports}">
+                    <td th:text="${imp.id}"></td>
+                    <td th:text="${imp.sourceUrl}"></td>
+                    <td>
+                        <span th:if="${imp.status.name() == 'NEW'}" class="badge badge-new" th:text="${imp.status}"></span>
+                        <span th:if="${imp.status.name() == 'SUCCESS'}" class="badge badge-success" th:text="${imp.status}"></span>
+                        <span th:if="${imp.status.name() == 'FAILED'}" class="badge badge-failed" th:text="${imp.status}"></span>
+                    </td>
+                    <td th:text="${imp.requestedAt}"></td>
+                    <td th:text="${imp.finishedAt}"></td>
+                    <td class="muted" th:text="${imp.errorMessage} ?: '-'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="footer-space"></div>
+</div>
+</body>
+</html>

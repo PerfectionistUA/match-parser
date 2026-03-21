@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Matches</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title">Matches</h1>
+        <p class="page-subtitle">
+            Перелік матчів, які були збережені після успішного імпорту.
+        </p>
+
+        <nav class="top-nav">
+            <a class="nav-link" th:href="@{/}">Home</a>
+            <a class="nav-link" th:href="@{/imports}">Imports</a>
+            <a class="nav-link" th:href="@{/swagger-ui/index.html}">Swagger UI</a>
+        </nav>
+    </header>
+
+    <section class="card">
+        <h2 class="section-title">Saved matches</h2>
+
+        <div th:if="${#lists.isEmpty(matches)}" class="empty">
+            Матчів поки немає.
+        </div>
+
+        <div th:if="${!#lists.isEmpty(matches)}" class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Match Name</th>
+                    <th>Date</th>
+                    <th>Source URL</th>
+                    <th>Import Job ID</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="match : ${matches}">
+                    <td th:text="${match.id}"></td>
+                    <td th:text="${match.matchName}"></td>
+                    <td th:text="${match.matchDate}"></td>
+                    <td th:text="${match.sourceUrl}"></td>
+                    <td th:text="${match.importJob != null ? match.importJob.id : '-'}"></td>
+                    <td>
+                        <a th:href="@{'/matches/' + ${match.id}}">Open details</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="footer-space"></div>
+</div>
+</body>
+</html>

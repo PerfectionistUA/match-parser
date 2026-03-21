@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    container_name: match-parser-app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./import-storage:/app/import-storage

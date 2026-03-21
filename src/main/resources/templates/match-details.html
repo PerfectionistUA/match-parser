@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Match Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <header class="page-header">
+        <h1 class="page-title">Match Details</h1>
+        <p class="page-subtitle">
+            Детальна інформація про матч і результати учасників.
+        </p>
+
+        <nav class="top-nav">
+            <a class="nav-link" th:href="@{/}">Home</a>
+            <a class="nav-link" th:href="@{/imports}">Imports</a>
+            <a class="nav-link" th:href="@{/matches}">Matches</a>
+        </nav>
+    </header>
+
+    <section class="card">
+        <h2 class="card-title" th:text="${match.matchName}">Match Name</h2>
+
+        <div class="meta-list">
+            <div class="meta-item">
+                <div class="meta-label">Match ID</div>
+                <div class="meta-value" th:text="${match.id}"></div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Match Date</div>
+                <div class="meta-value" th:text="${match.matchDate}"></div>
+            </div>
+            <div class="meta-item">
+                <div class="meta-label">Source URL</div>
+                <div class="meta-value" th:text="${match.sourceUrl}"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card">
+        <h3 class="section-title">Results</h3>
+
+        <div th:if="${#lists.isEmpty(results)}" class="empty">
+            Для цього матчу ще немає результатів.
+        </div>
+
+        <div th:if="${!#lists.isEmpty(results)}" class="table-wrap">
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Division</th>
+                    <th>Place</th>
+                    <th>Competitor</th>
+                    <th>Member Number</th>
+                    <th>Points</th>
+                    <th>Percent</th>
+                    <th>Time</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="result : ${results}">
+                    <td th:text="${result.id}"></td>
+                    <td th:text="${result.divisionName}"></td>
+                    <td th:text="${result.placeValue}"></td>
+                    <td th:text="${result.competitorName}"></td>
+                    <td th:text="${result.memberNumber} ?: '-'"></td>
+                    <td th:text="${result.pointsValue} ?: '-'"></td>
+                    <td th:text="${result.percentValue} ?: '-'"></td>
+                    <td th:text="${result.timeValue} ?: '-'"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <div class="footer-space"></div>
+</div>
+</body>
+</html>
